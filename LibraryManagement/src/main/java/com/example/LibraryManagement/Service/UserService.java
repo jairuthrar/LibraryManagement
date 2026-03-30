@@ -15,7 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private EmailService emailService;   // ✅ FIX: inject email service
+    private EmailService emailService;   
 
     // Create user + send email
     public UserEntity createUser(UserEntity user) {
