@@ -41,15 +41,17 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    // Update user
-    public UserEntity updateUser(Long id, UserEntity updatedUser) {
-        return userRepository.findById(id).map(user -> {
-            user.setUsername(updatedUser.getUsername());
-            user.setPassword(updatedUser.getPassword());
-            user.setEmail(updatedUser.getEmail());
-            return userRepository.save(user);
-        }).orElseThrow(() -> new RuntimeException("User not found with id " + id));
+   public UserEntity updateUser(Long id, UserEntity updatedUser) {
+
+    UserEntity user = userRepository.findById(id).orElse(null);
+    if (user == null) {
+        throw new RuntimeException("User not found with id " + id);
     }
+    user.setUsername(updatedUser.getUsername());
+    user.setPassword(updatedUser.getPassword());
+    user.setEmail(updatedUser.getEmail());
+    return userRepository.save(user);
+}
 
     // Delete user
     public void deleteUser(Long id) {
